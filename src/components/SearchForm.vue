@@ -8,7 +8,7 @@
         class="search__input"
         type="text"
         :value="searchText"
-        @keyup="searchText = $event.target.value" />
+        @keyup="onSearchText" />
       <button
         class="search__button"
         type="submit">
@@ -32,6 +32,9 @@
 </template>
 
 <script>
+import { mapStores } from 'pinia';
+import { useKeywordStore } from '~/store/keyword'; 
+
 export default {
   data() {
     return {
@@ -40,6 +43,7 @@ export default {
   },
 
   computed: {
+    ...mapStores(useKeywordStore),
     isSearchText() {
       return !!this.searchText;
     },
@@ -47,6 +51,18 @@ export default {
 
   mounted() {
     this.$refs.focusInput.focus();
+  },
+
+  methods: {
+    onSearchText({target, key}) {
+      if (key === 'Backspace') {
+        return;
+      }
+
+      if (target.value.length > 2) {
+        this.keywordStore.fetchKeyword(target.value);
+      }
+    }
   },
 };
 </script>
