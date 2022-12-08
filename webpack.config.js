@@ -45,6 +45,7 @@ module.exports = (env, options) => {
                   @use "sass:selector";
                   @use "sass:string";
                   @import "~/scss/_variables";
+                  @import "~/scss/_reset";
                 `,
               },
             },
