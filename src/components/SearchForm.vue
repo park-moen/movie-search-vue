@@ -4,8 +4,11 @@
       class="search__form"
       @submit.prevent>
       <input
+        ref="focusInput"
         class="search__input"
-        type="text" />
+        type="text"
+        :value="searchText"
+        @keyup="searchText = $event.target.value" />
       <button
         class="search__button"
         type="submit">
@@ -14,18 +17,50 @@
           size="xl" />
       </button>
     </form>
+    <div
+      v-if="isSearchText"
+      class="search__autocomplete">
+      <ul class="search__searched-lsit">
+        <li
+          v-for="title in searcedTitles"
+          :key="title.imdbID">
+          {{ title.Title }}
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      searchText: '',
+    };
+  },
+
+  computed: {
+    isSearchText() {
+      return !!this.searchText;
+    },
+  },
+
+  mounted() {
+    this.$refs.focusInput.focus();
+  },
+};
+</script>
+
 <style lang="scss" scoped>
 .search {
+  border: 1px solid rgba(0, 0, 0, 0.15);
   width: 40%;
   height: 50px;
   border-radius: 4px;
   background-color: #ffffff;
-  box-shadow: 1px 1px 5px rgba($color: $black, $alpha: 0.2);
-  overflow: hidden;
+  box-shadow: 0px 2px 3px 0 $color-box-shadow;
   margin: 25px 0;
+  position: relative;
 
   &__form {
     display: flex;
@@ -46,6 +81,29 @@
 
     &:hover {
       background-color: rgba($color: orange, $alpha: 0.7);
+      border-top-right-radius: 4px;
+    }
+  }
+
+  &__autocomplete {
+    background-color: $white;
+    box-shadow: 0px 2px 3px 0 $color-box-shadow;
+    position: absolute;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    top: 45px;
+    left: -1px;
+    width: 100%;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    line-height: 2;
+
+    li {
+      padding-left: 5px;
+
+      &:hover,
+      &:active {
+        background-color: darken($white, 7%);
+      }
     }
   }
 }

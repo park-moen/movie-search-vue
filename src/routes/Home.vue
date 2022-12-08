@@ -2,7 +2,7 @@
   <div class="home">
     <TheHeader />
     <main class="home__main">
-      <Log />
+      <Log :is-text="true" />
       <SearchFormVue />
     </main>
   </div>

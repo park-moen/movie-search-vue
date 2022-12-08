@@ -1,11 +1,24 @@
 <template>
   <div class="log">
     <div class="log__img"></div>
-    <h1 class="log__title">
+    <h1
+      v-if="isText"
+      class="log__title">
       Movie's
     </h1>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    isText: {
+      type: Boolean,
+      default: true,
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 .log {
