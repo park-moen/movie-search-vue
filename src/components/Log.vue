@@ -1,10 +1,10 @@
 <template>
   <div class="log">
-    <div class="log__img"></div>
     <h1
       v-if="isText"
       class="log__title">
-      Movie's
+      <span class="log__first-text">Rotten</span>  
+      <span class="log__last-text">Cherry tomato</span>
     </h1>
   </div>
 </template>
@@ -22,21 +22,22 @@ export default {
 
 <style lang="scss" scoped>
 .log {
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   font-size: 36px;
-  line-height: 2;
-  color: $color-font;
+  line-height: 0.4;
+  color: $color-log-font;
+  background-color: $color-log-background;
+  box-shadow: -10px -10px 15px tomato;
 
-  &__img {
-    background-color: orange;
-    width: 125px;
-    height: 125px;
-    border-radius: 50%;
+  &__first-text, &__last-text {
+    display: block;
+    text-align: center;
+    text-shadow: $color-log-background 2px 5px 5px;;
   }
 }
 </style>

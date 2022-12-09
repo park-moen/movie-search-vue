@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <main
-      :class="isAutocompleteStore.isShow && 'temp'"
+      :class="isAutocompleteStore.isShow && 'pull-up'"
       class="home__main">
       <Log :is-text="true" />
       <SearchFormVue />
@@ -46,10 +46,10 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 200px;
+    margin: 200px 0;
     transition: transform 0.25s linear;
 
-    &.temp {
+    &.pull-up {
       transform: translateY(-150px);
     }
   }
