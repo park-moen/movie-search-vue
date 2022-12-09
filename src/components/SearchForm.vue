@@ -30,7 +30,7 @@
           :key="movieInformation.imdbID"
           :class="autocompleteCursor === index && 'active'"
           class="search__searched-item">
-          {{ movieInformation.Title }}
+          <MovieItemVue :movie-information="movieInformation" />
         </li>
       </ul>
     </div>
@@ -39,14 +39,21 @@
 
 <script>
 import { mapStores } from 'pinia';
+
 import { useKeywordStore } from '~/store/keyword';
 import { useIsAutocompleteStore } from '~/store/isAutocomplete';
 import debounce from '~/utils/debounce';
+
+import MovieItemVue from '~/components/MovieItem';
 
 const SEARCH_INPUT_INDEX = -1;
 const LAST_FORM_CHILDREN_INDEX = 10;
 
 export default {
+  components: {
+    MovieItemVue
+  },
+
   data() {
     return {
       searchText: '',
@@ -80,6 +87,10 @@ export default {
     }, 300),
 
     onKeywordSelect({ key }) {
+      if (key === 'Backspace') {
+        return;
+      }
+
       if (this.$refs.searchedList) {
         const searchedItem = [...this.$refs.searchedList.children];
 
@@ -97,7 +108,9 @@ export default {
             (this.autocompleteCursor + 1) % LAST_FORM_CHILDREN_INDEX;
         }
 
-        this.searchText = searchedItem[this.autocompleteCursor].innerText;
+        if (this.autocompleteCursor !== SEARCH_INPUT_INDEX) {
+          this.searchText = searchedItem[this.autocompleteCursor].innerText;
+        }
       }
     },
 
@@ -111,7 +124,7 @@ export default {
 <style lang="scss" scoped>
 .search {
   border: 1px solid rgba(0, 0, 0, 0.15);
-  width: 40%;
+  width: 70%;
   height: 50px;
   border-radius: 4px;
   background-color: #ffffff;
@@ -156,7 +169,6 @@ export default {
   }
 
   &__searched-item {
-    padding-left: 5px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
