@@ -26,7 +26,7 @@ export default {
   },
   
   mounted() {
-    console.log(this.movieInformation);
+    // console.log(this.movieInformation);
   }
 };
 </script>

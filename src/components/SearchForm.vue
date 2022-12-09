@@ -110,13 +110,28 @@ export default {
 
         if (this.autocompleteCursor !== SEARCH_INPUT_INDEX) {
           this.searchText = searchedItem[this.autocompleteCursor].innerText;
+          this.onDScrollViewport();
         }
       }
     },
 
     onShowSearchResult() {
-      console.log(this.keywordStore.movieInformation);
+      // console.log(this.keywordStore.movieInformation);
     },
+
+    onDScrollViewport() {
+      if (this.autocompleteCursor % 4 === 0) {
+        window.scrollBy({ top: 260, behavior: 'smooth' });
+      }
+
+      if (this.autocompleteCursor === LAST_FORM_CHILDREN_INDEX - 1) {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth'
+        });
+      }
+    }
   },
 };
 </script>
