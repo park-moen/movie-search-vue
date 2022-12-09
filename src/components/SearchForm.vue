@@ -2,13 +2,15 @@
   <div class="search">
     <form
       class="search__form"
-      @submit.prevent>
+      @submit.prevent="onShowSearchResult"
+      @keydown="onKeywordSelect">
       <input
         ref="focusInput"
         class="search__input"
         type="text"
         :value="searchText"
-        @keyup="onSearchText" />
+        @input="onSearchKeywordInput"
+        @blur="autocompleteCursor = -1" />
       <button
         class="search__button"
         type="submit">
@@ -18,13 +20,17 @@
       </button>
     </form>
     <div
-      v-if="isSearchText"
+      v-if="isAutocompleteStore.isShow"
       class="search__autocomplete">
-      <ul class="search__searched-lsit">
+      <ul
+        ref="searchedList"
+        class="search__searched-list">
         <li
-          v-for="title in searcedTitles"
-          :key="title.imdbID">
-          {{ title.Title }}
+          v-for="(movieInformation, index) in keywordStore.movieInformation"
+          :key="movieInformation.imdbID"
+          :class="autocompleteCursor === index && 'active'"
+          class="search__searched-item">
+          {{ movieInformation.Title }}
         </li>
       </ul>
     </div>
@@ -33,19 +39,27 @@
 
 <script>
 import { mapStores } from 'pinia';
-import { useKeywordStore } from '~/store/keyword'; 
+import { useKeywordStore } from '~/store/keyword';
+import { useIsAutocompleteStore } from '~/store/isAutocomplete';
+import debounce from '~/utils/debounce';
+
+const SEARCH_INPUT_INDEX = -1;
+const LAST_FORM_CHILDREN_INDEX = 10;
 
 export default {
   data() {
     return {
       searchText: '',
+      autocompleteCursor: SEARCH_INPUT_INDEX,
     };
   },
 
   computed: {
     ...mapStores(useKeywordStore),
-    isSearchText() {
-      return !!this.searchText;
+    ...mapStores(useIsAutocompleteStore),
+
+    showAutocomplete() {
+      return this.searchText && this.keywordStore.movieInformation.length;
     },
   },
 
@@ -54,15 +68,42 @@ export default {
   },
 
   methods: {
-    onSearchText({target, key}) {
-      if (key === 'Backspace') {
-        return;
-      }
+    onSearchKeywordInput: debounce(async function ({ target }) {
+      this.searchText = target.value;
+      await this.keywordStore.fetchKeyword(target.value);
 
-      if (target.value.length > 2) {
-        this.keywordStore.fetchKeyword(target.value);
+      if (this.searchText && this.keywordStore.movieInformation.length) {
+        this.isAutocompleteStore.isShow = true;
+      } else {
+        this.isAutocompleteStore.isShow = false;
       }
-    }
+    }, 300),
+
+    onKeywordSelect({ key }) {
+      if (this.$refs.searchedList) {
+        const searchedItem = [...this.$refs.searchedList.children];
+
+        if (key === 'ArrowUp') {
+          const computedCursorIndex =
+            this.autocompleteCursor === -1
+              ? LAST_FORM_CHILDREN_INDEX
+              : this.autocompleteCursor;
+          this.autocompleteCursor =
+            (computedCursorIndex - 1) % LAST_FORM_CHILDREN_INDEX;
+        }
+
+        if (key === 'ArrowDown') {
+          this.autocompleteCursor =
+            (this.autocompleteCursor + 1) % LAST_FORM_CHILDREN_INDEX;
+        }
+
+        this.searchText = searchedItem[this.autocompleteCursor].innerText;
+      }
+    },
+
+    onShowSearchResult() {
+      console.log(this.keywordStore.movieInformation);
+    },
   },
 };
 </script>
@@ -112,14 +153,20 @@ export default {
     border-bottom-right-radius: 4px;
     border-bottom-left-radius: 4px;
     line-height: 2;
+  }
 
-    li {
-      padding-left: 5px;
+  &__searched-item {
+    padding-left: 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 
-      &:hover,
-      &:active {
-        background-color: darken($white, 7%);
-      }
+    &:hover {
+      background-color: darken($white, 7%);
+    }
+
+    &.active {
+      background-color: darken($white, 7%);
     }
   }
 }

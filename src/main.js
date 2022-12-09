@@ -8,12 +8,13 @@ import App from '~/App';
 import router from '~/routes';
 
 library.add(fas);
+
 const pinia = createPinia();
 const app = createApp(App);
 
-pinia.use(({store}) => {
+pinia.use(({ store }) => {
   store.$router = markRaw(router);
-}); 
+});
 app.component('font-awesome-icon', FontAwesomeIcon);
 app.use(pinia);
 app.use(router);
