@@ -109,10 +109,13 @@ section {
 
 html {
   box-sizing: border-box;
+  height: 100%;
 }
 
 body {
   line-height: 1;
+  height: 100%;;
+  background-color: #f7f7f7;
 }
 
 ol,
@@ -148,4 +151,8 @@ button {
   background-color: inherit;
   border: 0;
   padding: 0;
+}
+
+#app {
+  height: 100%;
 }

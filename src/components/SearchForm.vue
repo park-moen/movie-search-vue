@@ -43,8 +43,6 @@ export default {
     onSearchKeywordInput: debounce(async function ({ target }) {
       this.searchText = target.value;
       await this.keywordStore.fetchKeyword(target.value);
-
-      console.log(this.keywordStore.movieInformation);
     }, 300),
   },
 };
@@ -53,7 +51,7 @@ export default {
 <style lang="scss" scoped>
 .search {
   border: 1px solid rgba(0, 0, 0, 0.15);
-  width: 70%;
+  width: 60%;
   height: 50px;
   border-radius: 4px;
   background-color: #ffffff;

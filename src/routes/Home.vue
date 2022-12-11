@@ -1,29 +1,24 @@
 <template>
   <div class="home">
     <main
-      :class="isAutocompleteStore.isShow && 'pull-up'"
       class="home__main">
       <Log />
-      <SearchFormVue />
+      <SearchForm />
+      <MovieList />
     </main>
   </div>
 </template>
 
 <script>
-import { mapStores } from 'pinia';
-import { useIsAutocompleteStore } from '~/store/isAutocomplete';
-
 import Log from '~/components/Log';
-import SearchFormVue from '~/components/SearchForm';
+import SearchForm from '~/components/SearchForm';
+import MovieList from '~/components/MovieList.vue';
 
 export default {
   components: {
     Log,
-    SearchFormVue,
-  },
-
-  computed: {
-    ...mapStores(useIsAutocompleteStore),
+    SearchForm,
+    MovieList
   },
 };
 </script>
@@ -31,22 +26,17 @@ export default {
 <style lang="scss" scoped>
 .home {
   background-color: $color-background;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+  height: 100%; 
+  widows: 100%;
 
   &__main {
-    height: 100%;
-    flex-grow: 1;
+    margin: 0 auto;
+    padding-top: 120px;
+    width: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 200px 0;
     transition: transform 0.25s linear;
-
-    &.pull-up {
-      transform: translateY(-150px);
-    }
   }
 }
 </style>
