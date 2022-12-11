@@ -22,52 +22,53 @@ export default {
     movieInformation: {
       type: Object,
       required: true,
-    }
+    },
   },
-  
+
   mounted() {
     // console.log(this.movieInformation);
-  }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-  .movie {
+.movie {
+  display: flex;
+  padding: 10px 45px;
+
+  &__image-box {
+    width: 80px;
     display: flex;
-    padding: 10px 45px;
-
-    &__image-box {
-      width: 80px;
-      display: flex;
-      flex-shrink: 0;
-      align-items: center;
-      border-radius: 15px;
-      overflow: hidden;
-    }
-
-    &__image {
-      width: 100%;
-    }
-
-    &__content {
-      flex-grow: 1;
-      display: flex;
-      flex-shrink: 0;
-      flex-direction: column;
-      justify-content: center;
-      line-height: 1.45;
-      padding-left: 50px;
-      font-size: 20px;
-      font-weight: 700;
-    }
-
-    &__year, &__type {
-      font-size: 16px;
-      font-weight: 500;
-    }
-
-    &__type {
-      text-transform: uppercase;
-    }
+    flex-shrink: 0;
+    align-items: center;
+    border-radius: 15px;
+    overflow: hidden;
   }
+
+  &__image {
+    width: 100%;
+  }
+
+  &__content {
+    flex-grow: 1;
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.45;
+    padding-left: 50px;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  &__year,
+  &__type {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  &__type {
+    text-transform: uppercase;
+  }
+}
 </style>

@@ -1,24 +1,11 @@
 <template>
   <div class="log">
-    <h1
-      v-if="isText"
-      class="log__title">
-      <span class="log__first-text">Rotten</span>  
+    <h1 class="log__title">
+      <span class="log__first-text">Rotten</span>
       <span class="log__last-text">Cherry tomato</span>
     </h1>
   </div>
 </template>
-
-<script>
-export default {
-  props: {
-    isText: {
-      type: Boolean,
-      default: true,
-    },
-  },
-};
-</script>
 
 <style lang="scss" scoped>
 .log {
@@ -34,10 +21,11 @@ export default {
   background-color: $color-log-background;
   box-shadow: -10px -10px 15px tomato;
 
-  &__first-text, &__last-text {
+  &__first-text,
+  &__last-text {
     display: block;
     text-align: center;
-    text-shadow: $color-log-background 2px 5px 5px;;
+    text-shadow: $color-log-background 2px 5px 5px;
   }
 }
 </style>

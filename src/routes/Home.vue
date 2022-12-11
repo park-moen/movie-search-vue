@@ -3,7 +3,7 @@
     <main
       :class="isAutocompleteStore.isShow && 'pull-up'"
       class="home__main">
-      <Log :is-text="true" />
+      <Log />
       <SearchFormVue />
     </main>
   </div>
@@ -11,10 +11,10 @@
 
 <script>
 import { mapStores } from 'pinia';
+import { useIsAutocompleteStore } from '~/store/isAutocomplete';
 
 import Log from '~/components/Log';
 import SearchFormVue from '~/components/SearchForm';
-import { useIsAutocompleteStore } from '~/store/isAutocomplete';
 
 export default {
   components: {
@@ -24,11 +24,6 @@ export default {
 
   computed: {
     ...mapStores(useIsAutocompleteStore),
-
-    temp() {
-      console.log(this.isAutocompleteStore.isShow);
-      return 'true';
-    },
   },
 };
 </script>
