@@ -8,7 +8,7 @@
         class="search__input"
         type="text"
         :value="searchText"
-        @input="onSearchKeywordInput" />
+        @input="onChangeSearchText" />
       <button
         class="search__button"
         type="submit">
@@ -40,7 +40,7 @@ export default {
   },
 
   methods: {
-    onSearchKeywordInput: debounce(async function ({ target }) {
+    onChangeSearchText: debounce(async function ({ target }) {
       this.searchText = target.value;
       await this.keywordStore.fetchKeyword(target.value);
     }, 300),

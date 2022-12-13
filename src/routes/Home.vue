@@ -1,24 +1,23 @@
 <template>
   <div class="home">
-    <main
-      class="home__main">
+    <div class="home__main">
       <Log />
       <SearchForm />
       <MovieList />
-    </main>
+    </div>
   </div>
 </template>
 
 <script>
 import Log from '~/components/Log';
 import SearchForm from '~/components/SearchForm';
-import MovieList from '~/components/MovieList.vue';
+import MovieList from '~/components/MovieList';
 
 export default {
   components: {
     Log,
     SearchForm,
-    MovieList
+    MovieList,
   },
 };
 </script>
@@ -26,7 +25,7 @@ export default {
 <style lang="scss" scoped>
 .home {
   background-color: $color-background;
-  height: 100%; 
+  height: 100%;
   widows: 100%;
 
   &__main {
@@ -36,7 +35,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: transform 0.25s linear;
+    position: relative;
   }
 }
 </style>
