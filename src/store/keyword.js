@@ -9,34 +9,36 @@ export const useKeywordStore = defineStore('keyword', {
     page: 1,
   }),
 
+  getters: {
+    isInitializationFetch: state => state.page === 1,
+  },
+
   actions: {
     async fetchKeyword(keyword) {
       const MIN_KEYWORD = 3;
 
       if (keyword.trim().length < MIN_KEYWORD) {
-        this.movieInformation = [];
+        this.emptyKeyword();
         return;
       }
 
       this.loading = true;
-      const movieMetaData = await request(
-        `&s=${keyword || this.keyword}&page=${this.page}`
-      );
+      const movieMetaData = await request(`&s=${keyword}&page=${this.page}`);
       this.keyword = keyword;
       this.page++;
       this.loading = false;
 
       if (movieMetaData.Response === 'True') {
-        this.movieInformation = [
-          ...this.movieInformation,
-          movieMetaData.Search,
-        ];
+        this.movieInformation.push(movieMetaData.Search);
       } else {
-        this.movieInformation = [];
+        this.emptyKeyword();
       }
+    },
 
-      // eslint-disable-next-line no-console
-      console.log([...this.movieInformation], 'store');
+    emptyKeyword() {
+      this.movieInformation = [];
+      this.page = 1;
+      this.keyword = '';
     },
   },
 });

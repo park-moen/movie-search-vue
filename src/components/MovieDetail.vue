@@ -4,8 +4,7 @@
       <img
         class="detail__image"
         :src="detail.Poster"
-        alt="movie poster image"
-      />
+        alt="movie poster image" />
     </div>
     <div class="detail__content">
       <div class="detail__main-content">
@@ -20,11 +19,12 @@
           <div
             v-for="rating in detail.Ratings"
             :key="rating.Source"
-            class="detail__rating"
-          >
+            class="detail__rating">
             <div class="detail__source">
               <span>{{ rating.Value }}</span>
-              <font-awesome-icon icon="fa-solid fa-star" size="xl" />
+              <font-awesome-icon
+                icon="fa-solid fa-star"
+                size="xl" />
             </div>
             <span>{{ rating.Source }}</span>
           </div>
@@ -54,10 +54,6 @@ export default {
 
       return this.detail?.Genre?.replace(/,/g, ' /');
     },
-  },
-
-  updated() {
-    console.log(this.detail.Ratings);
   },
 };
 </script>

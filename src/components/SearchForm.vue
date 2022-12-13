@@ -7,7 +7,7 @@
         ref="focusInput"
         class="search__input"
         type="text"
-        :value="searchText"
+        :value="searchText || keywordStore.keyword"
         @input="onChangeSearchText" />
       <button
         class="search__button"
