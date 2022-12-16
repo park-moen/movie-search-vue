@@ -9,8 +9,6 @@ import router from '~/routes';
 
 library.add(fas);
 
-console.log(process.env.BASE_URL, '환경변수');
-
 const pinia = createPinia();
 const app = createApp(App);
 

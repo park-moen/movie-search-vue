@@ -1,5 +1,6 @@
 const request = async query => {
   try {
+    console.log(BASE_URL, 'end-point');
     const data = await fetch(`${BASE_URL}${query}`);
 
     if (data.ok) {
