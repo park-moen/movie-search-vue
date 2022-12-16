@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "API 사용에 대해 궁금한 점은 '#03_학습_질의응답' 채널에 질문 남겨주세요!",
   "scripts": {
-    "dev": "webpack server --mode development",
+    "dev": "webpack server --mode development --open",
     "build": "webpack --mode production",
     "lint": "prettier -w ./src/*"
   },
