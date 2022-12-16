@@ -1,8 +1,6 @@
-import BASE_URL from './env';
-
 const request = async query => {
   try {
-    const data = await fetch(`${BASE_URL}${query}`);
+    const data = await fetch(`${process.env.BASE_URL}${query}`);
 
     if (data.ok) {
       return await data.json();

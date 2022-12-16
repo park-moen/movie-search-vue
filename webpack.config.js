@@ -1,5 +1,9 @@
 const { VueLoaderPlugin } = require('vue-loader');
 const HtmlPlugin = require('html-webpack-plugin');
+const dotenv = require('dotenv');
+const webpack = require('webpack');
+
+dotenv.config();
 
 module.exports = (env, options) => {
   console.log(env, options);
@@ -62,6 +66,9 @@ module.exports = (env, options) => {
       new VueLoaderPlugin(),
       new HtmlPlugin({
         template: './src/index.html',
+      }),
+      new webpack.DefinePlugin({
+        'process.env.BASE_URL': JSON.stringify(process.env.BASE_URL),
       }),
     ],
     devServer: {
