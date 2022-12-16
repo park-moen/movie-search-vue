@@ -3,7 +3,7 @@ const HtmlPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const dotenv = require('dotenv');
 
-console.log(JSON.stringify(dotenv.config().parsed.BASE_URL), 'before');
+dotenv.config();
 
 module.exports = () => {
   return {
@@ -66,10 +66,8 @@ module.exports = () => {
       new HtmlPlugin({
         template: './src/index.html',
       }),
-      new webpack.DefinePlugin({
-        BASE_URL: JSON.stringify(
-          JSON.stringify(dotenv.config().parsed.BASE_URL)
-        ),
+      new webpack.EnvironmentPlugin({
+        BASE_URL: JSON.stringify(['BASE_URL']),
       }),
     ],
     devServer: {

@@ -1,7 +1,7 @@
 const request = async query => {
   try {
-    console.log(BASE_URL, 'end-point');
-    const data = await fetch(`${BASE_URL}${query}`);
+    console.log(process.env.BASE_URL, 'end-point');
+    const data = await fetch(`${process.env.BASE_URL}${query}`);
 
     if (data.ok) {
       return await data.json();
