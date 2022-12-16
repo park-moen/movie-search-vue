@@ -1,6 +1,10 @@
 const { VueLoaderPlugin } = require('vue-loader');
 const HtmlPlugin = require('html-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
+const webpack = require('webpack');
+const dotenv = require('dotenv');
+
+console.log(JSON.stringify(dotenv.config().parsed.BASE_URL), 'before');
+
 module.exports = () => {
   return {
     resolve: {
@@ -62,8 +66,10 @@ module.exports = () => {
       new HtmlPlugin({
         template: './src/index.html',
       }),
-      new Dotenv({
-        systemvars: true,
+      new webpack.DefinePlugin({
+        BASE_URL: JSON.stringify(
+          JSON.stringify(dotenv.config().parsed.BASE_URL)
+        ),
       }),
     ],
     devServer: {
