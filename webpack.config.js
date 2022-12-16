@@ -5,8 +5,7 @@ const webpack = require('webpack');
 
 dotenv.config();
 
-module.exports = (env, options) => {
-  console.log(env, options);
+module.exports = () => {
   return {
     resolve: {
       extensions: ['.js', '.vue'],
