@@ -1,3 +1,5 @@
+console.log(process.env.BASE_URL);
+
 const request = async query => {
   try {
     const data = await fetch(`${process.env.BASE_URL}${query}`);
